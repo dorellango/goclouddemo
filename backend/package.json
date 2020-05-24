@@ -1,0 +1,16 @@
+{
+  "name": "gocloud-test-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^6.1.7",
+    "serverless-pseudo-parameters": "^2.5.0"
+  }
+}

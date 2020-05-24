@@ -1,0 +1,26 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "suscriptions create",
+  "required": [
+    "name",
+    "phone",
+    "email",
+    "rut"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "integer"
+    },
+    "rut": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    }
+  }
+}
