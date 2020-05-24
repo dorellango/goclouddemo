@@ -28,6 +28,7 @@ provider:
 environment:
   STAGE: ${self:provider.stage}
   SLS_DEBUG: ${file(config/config.${self:provider.stage}.json):SLS_DEBUG, 'false'}
+  SUSCRIPTIONS_TABLE: ${self:custom.dynamoTableSubscriptions}
 
 iamRoleStatements:
   - Effect: "Allow"
@@ -41,7 +42,7 @@ iamRoleStatements:
 
 functions:
   subscriptions:
-    handler: subscriptions.handler
+    handler: src/suscriptionsCreate.handler
     events:
       - http:
           path: landing/subscriptions
