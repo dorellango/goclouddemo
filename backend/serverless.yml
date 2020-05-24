@@ -12,16 +12,11 @@
 # Happy Coding!
 
 service: go-cloud-test
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+
 plugins:
   - serverless-pseudo-parameters
   - serverless-dynamodb-local
   - serverless-offline
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
 
 provider:
   name: aws
@@ -37,12 +32,9 @@ environment:
 iamRoleStatements:
   - Effect: "Allow"
     Action:
-      - "dynamodb:Scan"
       - "dynamodb:Query"
       - "dynamodb:GetItem"
-      - "dynamodb:UpdateItem"
       - "dynamodb:PutItem"
-      - "dynamodb:BatchWriteItem"
     Resource:
       - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}
       - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}/index/*
@@ -63,6 +55,8 @@ functions:
 resources:
   # DynamoDB
   - ${file(resources/dynamoTables/suscriptionsTable.yml)}
+  # Api Gateway
+  - ${file(resources/api/gatewayResponses.yml)}
 
 custom:
   dynamoTableSubscriptions: gco_suscriptions_${self:provider.stage}
