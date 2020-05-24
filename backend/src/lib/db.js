@@ -1,3 +1,4 @@
+const AWS = require('aws-sdk')
 
 const config = process.env.STAGE === 'local' ? {
   apiVersion: '2012-08-10',

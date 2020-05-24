@@ -1,6 +1,7 @@
 'use strict';
 
-const { response, failedReponse } = require('../lib/helpers')
+const { response, failedReponse } = require('./lib/responses')
+const db = require('./lib/db')
 
 module.exports.handler = async (event, context, callback) => {
 
@@ -17,6 +18,9 @@ module.exports.handler = async (event, context, callback) => {
 
   } catch (error) {
 
+    console.error(`[💥] Error on request`);
+    console.error(error);
+
     return failedReponse({ message: 'Whoops! this is embarrising' })
 
   };
@@ -32,15 +36,17 @@ module.exports.handler = async (event, context, callback) => {
  */
 const saveSuscription = (body) => {
 
-  const { email, ...metadata } = body
+  const { email, rut, name, phone } = body
 
   return new Promise((resolve, reject) => {
 
+    const createdAt = Math.ceil(new Date().getTime() / 1000)
+
     const params = {
       Item: {
-        "PK": `suscription#${email}`,
-        "SK": `suscription#${email}`,
-        metadata
+        "PK": `USER#${rut}`,
+        "SK": `SUSCRIPTION#${createdAt}`,
+        name, email, phone, createdAt
       },
       TableName: process.env.SUSCRIPTIONS_TABLE
     };

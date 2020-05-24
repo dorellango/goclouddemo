@@ -25,20 +25,20 @@ provider:
   profile: ${opt:profile, 'default'}
   region: ${file(config/config.${self:provider.stage}.json):REGION, 'us-east-1'
 
-environment:
-  STAGE: ${self:provider.stage}
-  SLS_DEBUG: ${file(config/config.${self:provider.stage}.json):SLS_DEBUG, 'false'}
-  SUSCRIPTIONS_TABLE: ${self:custom.dynamoTableSubscriptions}
+  environment:
+    STAGE: ${self:provider.stage}
+    SLS_DEBUG: ${file(config/config.${self:provider.stage}.json):SLS_DEBUG, 'false'}
+    SUSCRIPTIONS_TABLE: ${self:custom.dynamoTableSubscriptions}
 
-iamRoleStatements:
-  - Effect: "Allow"
-    Action:
-      - "dynamodb:Query"
-      - "dynamodb:GetItem"
-      - "dynamodb:PutItem"
-    Resource:
-      - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}
-      - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}/index/*
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:Query"
+        - "dynamodb:GetItem"
+        - "dynamodb:PutItem"
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}
+        - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:custom.dynamoTableSubscriptions}/index/*
 
 functions:
   subscriptions:

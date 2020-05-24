@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "./node_modules/.bin/sls offline start",
+    "dev:debug": "node --inspect ./node_modules/.bin/sls offline start"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "serverless-pseudo-parameters": "^2.5.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.683.0"
+    "aws-sdk": "^2.683.0",
+    "serverless": "^1.71.3"
   }
 }
