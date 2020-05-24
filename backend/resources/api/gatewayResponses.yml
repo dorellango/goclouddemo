@@ -1,0 +1,17 @@
+Resources:
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: ${self:service}-${self:provider.stage}
+  GatewayResponseResourceNotFound:
+    Type: "AWS::ApiGateway::GatewayResponse"
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+      RestApiId:
+        Ref: "ApiGatewayRestApi"
+      ResponseType: BAD_REQUEST_BODY
+      "StatusCode": "422"
+      ResponseTemplates:
+        application/json: '{"message": "$context.error.message", "error": "$context.error.validationErrorString"}'
