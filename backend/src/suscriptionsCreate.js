@@ -1,6 +1,7 @@
 'use strict';
 
-const { response, failedReponse } = require('./lib/responses')
+const { response, failedReponse, invalidBodyResponse } = require('./lib/responses')
+const { validate, clean, format } = require('rut.js')
 const db = require('./lib/db')
 
 module.exports.handler = async (event, context, callback) => {
@@ -8,6 +9,12 @@ module.exports.handler = async (event, context, callback) => {
   console.log('[ℹ️] Event:', JSON.stringify(event))
 
   const body = JSON.parse(event.body)
+
+  if (!isAValidRut(body)) {
+    return invalidBodyResponse({ message: 'Invalid request body', error: 'RUT it does not seems to be valid' })
+  }
+
+  body.rut = clean(body.rut)
 
   try {
     const data = await saveSuscription(body)
@@ -27,7 +34,13 @@ module.exports.handler = async (event, context, callback) => {
 
 };
 
-
+/**
+ * Check if a rut is valid
+ * @param {object} body
+ */
+const isAValidRut = (body) => {
+  return validate(body.rut)
+}
 
 /**
  * Persis a new suscription on database

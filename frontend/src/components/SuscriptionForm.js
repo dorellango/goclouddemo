@@ -11,8 +11,11 @@ const SuscriptionForm = ({ markAsSubmited }) => {
     phone: ''
   })
 
+  const [error, setError] = useState(false)
+
 
   const handleInputChange = (event) => {
+    setError(false)
     setData({
       ...data,
       [event.target.name]: event.target.value
@@ -41,7 +44,9 @@ const SuscriptionForm = ({ markAsSubmited }) => {
       markAsSubmited(true)
 
     } catch (error) {
-      console.log(error)
+
+      setError(true)
+
     }
 
 
@@ -51,6 +56,9 @@ const SuscriptionForm = ({ markAsSubmited }) => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
+      {error &&
+        <div className="text-2xl text-center text-white border border-dashed border-red-400 p-4 mb-8">Los datos recibidios son inválidos</div>
+      }
       <div className="mb-8">
         <div className="md:flex">
           <div className="md:w-1/2 w-full p-2">
@@ -60,8 +68,11 @@ const SuscriptionForm = ({ markAsSubmited }) => {
           </div>
           <div className="md:w-1/2 w-full p-2">
             <label htmlFor="phone" className="text-white mb-2 block">Teléfono <span className="text-red-500">*</span></label>
-            <input type="text" name="phone" className="bg-white rounded px-3 py-2 w-full" placeholder=" Ej +569 3772 9376" required
-              value={data.phone} onChange={handleInputChange} />
+            <div className="flex items-center">
+              <input className="bg-gray-300 rounded rounded-r-none px-3 py-2 w-16" type="text" disabled value="+569" />
+              <input type="number" name="phone" className="bg-white rounded rounded-l-none px-3 py-2 w-full" placeholder=" Ej 37729376" required
+                value={data.phone} onChange={handleInputChange} />
+            </div>
           </div>
         </div>
         <div className="md:flex">

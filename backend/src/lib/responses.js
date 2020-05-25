@@ -21,4 +21,13 @@ const failedReponse = (body) => {
   };
 }
 
-module.exports = { response, failedReponse }
+const invalidBodyResponse = (body) => {
+
+  return {
+    statusCode: 422,
+    headers,
+    body: JSON.stringify(body),
+  };
+}
+
+module.exports = { response, failedReponse, invalidBodyResponse }
