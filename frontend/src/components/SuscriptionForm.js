@@ -22,15 +22,30 @@ const SuscriptionForm = ({ markAsSubmited }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const url = process.env.REACT_APP_API_URL || 'http://localhost:3100/local'
+
     console.log(JSON.stringify(data))
-    console.log('✅')
-    markAsSubmited(true)
-    setData({
-      name: '',
-      email: '',
-      rut: '',
-      phone: ''
-    })
+
+    try {
+      const response = await axios.post(`${url}/landing/subscriptions`, data)
+
+      console.log('[✅] Sucessfull suscription')
+
+      setData({
+        name: '',
+        email: '',
+        rut: '',
+        phone: ''
+      })
+
+      markAsSubmited(true)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
+
   }
 
 
