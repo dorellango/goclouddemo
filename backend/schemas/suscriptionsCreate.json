@@ -14,7 +14,8 @@
       "type": "string"
     },
     "phone": {
-      "type": "integer"
+      "type": "string",
+      "pattern": "^\\d+$"
     },
     "rut": {
       "type": "string",
