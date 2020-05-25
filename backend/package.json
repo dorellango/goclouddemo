@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "./node_modules/.bin/sls offline start --httpPort 3100",
+    "dev:debug": "node --inspect ./node_modules/.bin/sls offline start --httpPort 3100"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,10 @@
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^6.1.7",
     "serverless-pseudo-parameters": "^2.5.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.683.0",
+    "rut.js": "^1.0.2",
+    "serverless": "^1.71.3"
   }
 }
