@@ -17,7 +17,7 @@
       "type": "integer"
     },
     "rut": {
-      "type": "string",
+      "type": "string"
     },
     "email": {
       "type": "string"
