@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
+import { format } from 'rut.js'
 import axios from 'axios'
 
 
@@ -16,6 +17,11 @@ const SuscriptionForm = ({ markAsSubmited }) => {
 
   const handleInputChange = (event) => {
     setError(false)
+
+    if (event.target.name === 'rut') {
+      event.target.value = format(event.target.value)
+    }
+
     setData({
       ...data,
       [event.target.name]: event.target.value
